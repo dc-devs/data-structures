@@ -65,6 +65,28 @@ describe('Linked List', () => {
 		});
 	});
 
+	describe('set', () => {
+		it('exists', () => {
+			const linkedList = new LinkedList(0);
+			expect(typeof linkedList.set).to.be.equal('function');
+		});
+
+		describe('when called with a valid index', () => {
+			it('should update the node value at that index', () => {
+				const linkedList = new LinkedList(0);
+				linkedList.push(1);
+				linkedList.push(2);
+				linkedList.push(3);
+
+				linkedList.set(2, 5);
+
+				const selectedNode = linkedList.get(2);
+
+				expect(selectedNode?.value).to.be.equal(5);
+			});
+		});
+	});
+
 	describe('push', () => {
 		it('exists', () => {
 			const linkedList = new LinkedList(0);

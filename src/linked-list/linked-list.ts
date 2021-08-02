@@ -33,8 +33,16 @@ class LinkedList {
 		return currentNode;
 	}
 
-	// set(value) {}
-	
+	set(index: number, value: number | string) {
+		const node = this.get(index);
+
+		if (node) {
+			node.value = value;
+		}
+
+		return node;
+	}
+
 	// insert(value) {}
 
 	push(value: number | string) {
@@ -58,22 +66,23 @@ class LinkedList {
 			return undefined;
 		}
 
-		let previousNode = this.head;
 		let lastNode = this.head;
+		let previousNode = this.head;
 
-		while (lastNode.next) {
-			previousNode = lastNode;
-			lastNode = lastNode.next;
-		}
-
-		this.tail = previousNode;
-		this.tail.next = null;
-		this.length -= 1;
-
-		if (this.length === 0) {
+		if (this.length === 1) {
 			this.head = null;
 			this.tail = null;
+		} else {
+			while (lastNode.next) {
+				previousNode = lastNode;
+				lastNode = lastNode.next;
+			}
+
+			this.tail = previousNode;
+			this.tail.next = null;
 		}
+
+		this.length -= 1;
 
 		return lastNode;
 	}
