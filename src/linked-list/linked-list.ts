@@ -16,42 +16,26 @@ class LinkedList {
 		this.length = 1;
 	}
 
-	unshift(value: number | string) {
-		const newNode = new Node(value);
-
-		if (!this.head) {
-			this.head = newNode;
-			this.tail = newNode;
-		} else {
-			newNode.next = this.head;
-			this.head = newNode;
-		}
-
-		this.length += 1;
-
-		return this;
-	}
-
-	shift() {
-		if (!this.head) {
+	get(index: number) {
+		if (index >= this.length || index < 0) {
 			return undefined;
 		}
 
-		const shiftedNode = this.head;
-		shiftedNode.next = null;
+		let currentNode: Node | null | undefined = this.head;
 
-		if (this.length === 1) {
-			this.head = null;
-			this.tail = null;
-		} else {
-			const newFirstNode = this.head.next;
-			this.head = newFirstNode;
+		// Since currentNode already set,
+		// and i starts at 0
+		// only increment if index is above this value
+		for (let i = 0; i < index; i++) {
+			currentNode = currentNode?.next;
 		}
 
-		this.length -= 1;
-
-		return shiftedNode;
+		return currentNode;
 	}
+
+	// set(value) {}
+	
+	// insert(value) {}
 
 	push(value: number | string) {
 		const newNode = new Node(value);
@@ -94,24 +78,42 @@ class LinkedList {
 		return lastNode;
 	}
 
-	get(index: number) {
-		if (index >= this.length || index < 0) {
+	unshift(value: number | string) {
+		const newNode = new Node(value);
+
+		if (!this.head) {
+			this.head = newNode;
+			this.tail = newNode;
+		} else {
+			newNode.next = this.head;
+			this.head = newNode;
+		}
+
+		this.length += 1;
+
+		return this;
+	}
+
+	shift() {
+		if (!this.head) {
 			return undefined;
 		}
 
-		let currentNode: Node | null | undefined = this.head;
+		const shiftedNode = this.head;
+		shiftedNode.next = null;
 
-		// Since currentNode already set,
-		// and i starts at 0
-		// only increment if index is above this value
-		for (let i = 0; i < index; i++) {
-			currentNode = currentNode?.next;
+		if (this.length === 1) {
+			this.head = null;
+			this.tail = null;
+		} else {
+			const newFirstNode = this.head.next;
+			this.head = newFirstNode;
 		}
 
-		return currentNode;
-	}
+		this.length -= 1;
 
-	// insert(value) {}
+		return shiftedNode;
+	}
 
 	head: Node | null;
 	tail: Node | null;

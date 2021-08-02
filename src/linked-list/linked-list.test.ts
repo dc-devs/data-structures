@@ -67,7 +67,7 @@ describe('Linked List', () => {
 
 	describe('push', () => {
 		it('exists', () => {
-			const linkedList = new LinkedList(4);
+			const linkedList = new LinkedList(0);
 			expect(typeof linkedList.push).to.be.equal('function');
 		});
 
@@ -101,6 +101,150 @@ describe('Linked List', () => {
 					expect(linkedList.head?.value).to.be.equal(1);
 					expect(linkedList.head?.next).to.be.equal(null);
 					expect(linkedList.head).to.deep.equal(linkedList.tail);
+				});
+			});
+		});
+	});
+
+	describe('pop', () => {
+		it('exists', () => {
+			const linkedList = new LinkedList(0);
+			expect(typeof linkedList.pop).to.be.equal('function');
+		});
+
+		describe('when called', () => {
+			describe('and linked list has more than one nodes', () => {
+				it('should pop the last node off the linked list', () => {
+					let popResult;
+					const linkedList = new LinkedList(0);
+					linkedList.push(1);
+					linkedList.push(2);
+					linkedList.push(3);
+
+					popResult = linkedList.pop();
+
+					expect(linkedList.length).to.be.equal(3);
+					expect(popResult?.value).to.be.equal(3);
+					expect(popResult?.next).to.be.equal(null);
+				});
+			});
+
+			describe('and linked list has one node', () => {
+				it('should pop the last node off the linked list', () => {
+					const linkedList = new LinkedList(0);
+					const popResult = linkedList.pop();
+
+					expect(linkedList.length).to.be.equal(0);
+					expect(linkedList.head).to.be.equal(null);
+					expect(linkedList.tail).to.be.equal(null);
+					expect(popResult?.value).to.be.equal(0);
+					expect(popResult?.next).to.be.equal(null);
+				});
+			});
+
+			describe('and linked list has zero nodes', () => {
+				it('should pop the last node off the linked list', () => {
+					const linkedList = new LinkedList(0);
+					linkedList.pop();
+
+					const popResult = linkedList.pop();
+
+					expect(linkedList.length).to.be.equal(0);
+					expect(linkedList.head).to.be.equal(null);
+					expect(linkedList.tail).to.be.equal(null);
+					expect(popResult).to.be.equal(undefined);
+				});
+			});
+		});
+	});
+
+	describe('unshift', () => {
+		it('exists', () => {
+			const linkedList = new LinkedList(0);
+			expect(typeof linkedList.unshift).to.be.equal('function');
+		});
+
+		describe('when called', () => {
+			describe('and linked list has nodes', () => {
+				it('should unshift a new node onto the front of the linked list', () => {
+					const linkedList = new LinkedList(1);
+					linkedList.push(2);
+					linkedList.push(3);
+
+					linkedList.unshift(0);
+
+					const node1 = linkedList.get(1);
+
+					expect(linkedList.length).to.be.equal(4);
+					expect(linkedList.head?.value).to.be.equal(0);
+					expect(linkedList.head?.next).to.deep.equal(node1);
+				});
+			});
+
+			describe('and linked list does not have nodes', () => {
+				it('should unshift a new node onto the front of the linked list', () => {
+					const linkedList = new LinkedList(0);
+
+					linkedList.pop();
+					expect(linkedList.length).to.be.equal(0);
+
+					linkedList.unshift(1);
+					expect(linkedList.head?.value).to.be.equal(1);
+					expect(linkedList.head).to.deep.equal(linkedList.tail);
+				});
+			});
+		});
+	});
+
+	describe('shift', () => {
+		it('exists', () => {
+			const linkedList = new LinkedList(0);
+			expect(typeof linkedList.shift).to.be.equal('function');
+		});
+
+		describe('when called', () => {
+			describe('and linked list has more than one nodes', () => {
+				it('should shift a node off the front of the linked list', () => {
+					const linkedList = new LinkedList(0);
+
+					linkedList.push(1);
+					linkedList.push(2);
+					linkedList.push(3);
+
+					const shiftResult = linkedList.shift();
+
+					expect(linkedList.length).to.be.equal(3);
+					expect(shiftResult?.value).to.be.equal(0);
+					expect(shiftResult?.next).to.be.equal(null);
+				});
+			});
+
+			describe('and linked list has one node', () => {
+				it('should shift a node off the front of the linked list', () => {
+					let shiftResult;
+					const linkedList = new LinkedList(0);
+
+					shiftResult = linkedList.shift();
+					expect(shiftResult?.value).to.be.equal(0);
+					expect(shiftResult?.next).to.be.equal(null);
+					expect(linkedList.length).to.be.equal(0);
+					expect(linkedList.head).to.be.equal(null);
+					expect(linkedList.tail).to.be.equal(null);
+				});
+			});
+
+			describe('and linked list has zero nodes', () => {
+				it('should shift a node off the front of the linked list', () => {
+					let shiftResult;
+					const linkedList = new LinkedList(0);
+
+					linkedList.pop();
+					expect(linkedList.length).to.be.equal(0);
+					expect(linkedList.head).to.be.equal(null);
+
+					shiftResult = linkedList.shift();
+					expect(shiftResult).to.be.undefined;
+					expect(linkedList.length).to.be.equal(0);
 				});
 			});
 		});

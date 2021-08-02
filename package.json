@@ -4,7 +4,7 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"build": "yarn tsc",
+		"build": "rm -rf dist && yarn tsc",
 		"test": "yarn mocha -r ts-node/register 'src/**/**.test.ts'"
 	},
 	"keywords": [],

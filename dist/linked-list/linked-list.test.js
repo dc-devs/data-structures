@@ -58,7 +58,7 @@ describe('Linked List', () => {
     });
     describe('push', () => {
         it('exists', () => {
-            const linkedList = new linked_list_1.default(4);
+            const linkedList = new linked_list_1.default(0);
             chai_1.expect(typeof linkedList.push).to.be.equal('function');
         });
         describe('when called', () => {
@@ -79,8 +79,45 @@ describe('Linked List', () => {
             describe('and linked list does not have nodes', () => {
                 it('should push new node onto linked list', () => {
                     const linkedList = new linked_list_1.default(0);
-                    // linkedList.pop();
+                    linkedList.pop();
                     chai_1.expect(linkedList.length).to.be.equal(0);
+                    linkedList.push(1);
+                    chai_1.expect(linkedList.length).to.be.equal(1);
+                    chai_1.expect(linkedList.head?.value).to.be.equal(1);
+                    chai_1.expect(linkedList.head?.next).to.be.equal(null);
+                    chai_1.expect(linkedList.head).to.deep.equal(linkedList.tail);
+                });
+            });
+        });
+    });
+    describe('pop', () => {
+        it('exists', () => {
+            const linkedList = new linked_list_1.default(0);
+            chai_1.expect(typeof linkedList.pop).to.be.equal('function');
+        });
+        describe('when called', () => {
+            describe('and linked list has nodes', () => {
+                it('should pop the last node off the linked list', () => {
+                    let popResult;
+                    const linkedList = new linked_list_1.default(0);
+                    linkedList.push(1);
+                    linkedList.push(2);
+                    linkedList.push(3);
+                    popResult = linkedList.pop();
+                    chai_1.expect(linkedList.length).to.be.equal(3);
+                    chai_1.expect(popResult?.value).to.be.equal(3);
+                    chai_1.expect(popResult?.next).to.be.equal(null);
+                });
+            });
+            describe('and linked list does not have nodes', () => {
+                it('should return undefined', () => {
+                    const linkedList = new linked_list_1.default(0);
+                    linkedList.pop();
+                    const popResult = linkedList.pop();
+                    chai_1.expect(linkedList.length).to.be.equal(0);
+                    chai_1.expect(linkedList.head).to.be.equal(null);
+                    chai_1.expect(linkedList.tail).to.be.equal(null);
+                    chai_1.expect(popResult).to.be.equal(undefined);
                 });
             });
         });
