@@ -43,7 +43,32 @@ class LinkedList {
 		return node;
 	}
 
-	// insert(value) {}
+	insert(index: number, value: number | string) {
+		if (index === 0) {
+			return !!(this.unshift(value));
+		}
+
+		if (index === this.length) {
+			return !!(this.push(value));
+		}
+
+		if (index < 0 || index > this.length) {
+			return false;
+		}
+
+		const newNode = new Node(value);
+		const previousNode = this.get(index - 1);
+		const nextNode = previousNode?.next;
+
+		if (previousNode && newNode && nextNode) {
+			previousNode.next = newNode;
+			newNode.next = nextNode;
+		}
+
+		this.length += 1;
+
+		return true;
+	}
 
 	push(value: number | string) {
 		const newNode = new Node(value);

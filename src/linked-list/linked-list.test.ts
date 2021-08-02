@@ -87,6 +87,90 @@ describe('Linked List', () => {
 		});
 	});
 
+	describe('insert', () => {
+		it('exists', () => {
+			const linkedList = new LinkedList(0);
+			expect(typeof linkedList.insert).to.be.equal('function');
+		});
+
+		describe('when called', () => {
+			describe('with an invalid index', () => {
+				describe('and the index is equal to 0', () => {
+					it('should return false', () => {
+						const linkedList = new LinkedList(0);
+						const result = linkedList.insert(-1, 1);
+
+						expect(result).to.be.false;
+					});
+				});
+				describe('and the index is greater than the length', () => {
+					it('should return false', () => {
+						const linkedList = new LinkedList(0);
+						const result = linkedList.insert(5, 1);
+
+						expect(result).to.be.false;
+					});
+				});
+			});
+			describe('with a valid index', () => {
+				describe('and the index is equal to 0', () => {
+					it('should insert a node at the begining of the linked list', () => {
+						const linkedList = new LinkedList(0);
+						linkedList.push(1);
+						linkedList.push(2);
+						linkedList.push(3);
+
+						linkedList.insert(0, 5);
+
+						const node1 = linkedList.get(1);
+
+						expect(linkedList.length).to.be.equal(5);
+						expect(linkedList.head?.value).to.be.equal(5);
+						expect(linkedList.head?.next).to.deep.equal(node1);
+					});
+				});
+
+				describe('and the index is equal to the length', () => {
+					it('should insert a node at the end of the linked list', () => {
+						const linkedList = new LinkedList(0);
+						linkedList.push(1);
+						linkedList.push(2);
+						linkedList.push(3);
+
+						linkedList.insert(4, 5);
+
+						const node3 = linkedList.get(3);
+
+						expect(linkedList.length).to.be.equal(5);
+						expect(linkedList.tail?.value).to.be.equal(5);
+						expect(linkedList.tail?.next).to.be.equal(null);
+						expect(node3?.next).to.deep.equal(linkedList.tail);
+					});
+				});
+
+				describe('and the index falls inside bounds of linked list', () => {
+					it('should insert a node at index', () => {
+						const linkedList = new LinkedList(0);
+						linkedList.push(1);
+						linkedList.push(3);
+						linkedList.push(4);
+
+						linkedList.insert(2, 2);
+
+						const node1 = linkedList.get(1);
+						const node2 = linkedList.get(2);
+						const node3 = linkedList.get(3);
+
+						expect(linkedList.length).to.be.equal(5);
+						expect(node2?.value).to.be.equal(2);
+						expect(node2?.next).to.deep.equal(node3);
+						expect(node1?.next).to.deep.equal(node2);
+					});
+				});
+			});
+		});
+	});
+
 	describe('push', () => {
 		it('exists', () => {
 			const linkedList = new LinkedList(0);
