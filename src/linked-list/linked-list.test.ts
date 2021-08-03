@@ -95,7 +95,7 @@ describe('Linked List', () => {
 
 		describe('when called', () => {
 			describe('with an invalid index', () => {
-				describe('and the index is equal to 0', () => {
+				describe('and the index is less than 0', () => {
 					it('should return false', () => {
 						const linkedList = new LinkedList(0);
 						const result = linkedList.insert(-1, 1);
@@ -165,6 +165,85 @@ describe('Linked List', () => {
 						expect(node2?.value).to.be.equal(2);
 						expect(node2?.next).to.deep.equal(node3);
 						expect(node1?.next).to.deep.equal(node2);
+					});
+				});
+			});
+		});
+	});
+
+	describe('remove', () => {
+		it('exists', () => {
+			const linkedList = new LinkedList(0);
+			expect(typeof linkedList.insert).to.be.equal('function');
+		});
+
+		describe('when called', () => {
+			describe('with an invalid index', () => {
+				describe('and the index is less than 0', () => {
+					it('should return false', () => {
+						const linkedList = new LinkedList(0);
+						const result = linkedList.remove(-1);
+
+						expect(result).to.be.false;
+					});
+				});
+				describe('and the index is greater than the length', () => {
+					it('should return false', () => {
+						const linkedList = new LinkedList(0);
+						const result = linkedList.remove(5);
+
+						expect(result).to.be.false;
+					});
+				});
+			});
+
+			describe('with a valid index', () => {
+				describe('and the index is equal to 0', () => {
+					it('should remove a node at the begining of the linked list', () => {
+						const linkedList = new LinkedList(0);
+						linkedList.push(1);
+						linkedList.push(2);
+						linkedList.push(3);
+
+						linkedList.remove(0);
+
+						expect(linkedList.length).to.be.equal(3);
+						expect(linkedList.head?.value).to.be.equal(1);
+					});
+				});
+
+				describe('and the index is equal to the length', () => {
+					it('should remove a node at the end of the linked list', () => {
+						const linkedList = new LinkedList(0);
+						linkedList.push(1);
+						linkedList.push(2);
+						linkedList.push(3);
+
+						linkedList.remove(4);
+
+						expect(linkedList.length).to.be.equal(3);
+						expect(linkedList.tail?.value).to.be.equal(2);
+						expect(linkedList.tail?.next).to.be.equal(null);
+					});
+				});
+
+				describe('and the index falls inside bounds of linked list', () => {
+					it('should remove a node at index', () => {
+						const linkedList = new LinkedList(0);
+						linkedList.push(1);
+						linkedList.push(2);
+						linkedList.push(3);
+
+						const node1 = linkedList.get(1);
+						const node2 = linkedList.get(2);
+						const node3 = linkedList.get(3);
+
+						linkedList.remove(2);
+
+						expect(linkedList.length).to.be.equal(3);
+						expect(node2?.value).to.deep.equal(2);
+						expect(node2?.next).to.deep.equal(null);
+						expect(node1?.next).to.deep.equal(node3);
 					});
 				});
 			});
@@ -317,9 +396,11 @@ describe('Linked List', () => {
 					linkedList.push(2);
 					linkedList.push(3);
 
+					const node1 = linkedList.get(1);
 					const shiftResult = linkedList.shift();
 
 					expect(linkedList.length).to.be.equal(3);
+					expect(linkedList.head).to.deep.equal(node1);
 					expect(shiftResult?.value).to.be.equal(0);
 					expect(shiftResult?.next).to.be.equal(null);
 				});

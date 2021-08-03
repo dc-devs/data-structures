@@ -45,11 +45,11 @@ class LinkedList {
 
 	insert(index: number, value: number | string) {
 		if (index === 0) {
-			return !!(this.unshift(value));
+			return !!this.unshift(value);
 		}
 
 		if (index === this.length) {
-			return !!(this.push(value));
+			return !!this.push(value);
 		}
 
 		if (index < 0 || index > this.length) {
@@ -68,6 +68,33 @@ class LinkedList {
 		this.length += 1;
 
 		return true;
+	}
+
+	remove(index: number) {
+		if (index === 0) {
+			return !!this.shift();
+		}
+
+		if (index === this.length) {
+			return !!this.pop();
+		}
+
+		if (index < 0 || index > this.length) {
+			return false;
+		}
+
+		const previousNode = this.get(index - 1);
+		const removedNode = previousNode?.next;
+		const nextNode = removedNode?.next;
+
+		if (previousNode && removedNode && nextNode) {
+			previousNode.next = nextNode;
+			removedNode.next = null;
+		}
+
+		this.length -= 1;
+
+		return removedNode;
 	}
 
 	push(value: number | string) {
@@ -133,14 +160,15 @@ class LinkedList {
 			return undefined;
 		}
 
+		const newFirstNode = this.head.next;
 		const shiftedNode = this.head;
+
 		shiftedNode.next = null;
 
 		if (this.length === 1) {
 			this.head = null;
 			this.tail = null;
 		} else {
-			const newFirstNode = this.head.next;
 			this.head = newFirstNode;
 		}
 
