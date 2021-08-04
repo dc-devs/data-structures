@@ -356,10 +356,13 @@ describe.only('DoublyLinkedList', () => {
 					const doublyLinkedList = new DoublyLinkedList(0);
 					const popResult = doublyLinkedList.pop();
 
-					expect(doublyLinkedList.length).to.be.equal(0);
-					expect(doublyLinkedList.head).to.be.equal(null);
-					expect(doublyLinkedList.tail).to.be.equal(null);
 					expect(popResult?.value).to.be.equal(0);
+					expect(popResult?.next).to.be.equal(null);
+					expect(popResult?.prev).to.be.equal(null);
+
+					expect(doublyLinkedList.tail).to.be.equal(null);
+					expect(doublyLinkedList.head).to.be.equal(null);
+					expect(doublyLinkedList.length).to.be.equal(0);
 				});
 			});
 
@@ -370,10 +373,11 @@ describe.only('DoublyLinkedList', () => {
 
 					const popResult = doublyLinkedList.pop();
 
+					expect(popResult).to.be.equal(undefined);
+
 					expect(doublyLinkedList.length).to.be.equal(0);
 					expect(doublyLinkedList.head).to.be.equal(null);
 					expect(doublyLinkedList.tail).to.be.equal(null);
-					expect(popResult).to.be.equal(undefined);
 				});
 			});
 		});
