@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import LinkedList from './linked-list';
 
-describe('Linked List', () => {
+describe('LinkedList', () => {
 	it('is a class', () => {
 		expect(typeof LinkedList).to.be.equal('function');
 	});
@@ -433,6 +433,35 @@ describe('Linked List', () => {
 					expect(shiftResult).to.be.undefined;
 					expect(linkedList.length).to.be.equal(0);
 				});
+			});
+		});
+	});
+
+	describe('reverse', () => {
+		it('exists', () => {
+			const linkedList = new LinkedList(0);
+			expect(typeof linkedList.reverse).to.be.equal('function');
+		});
+
+		describe('when called', () => {
+			it('should reverse the linked list', () => {
+				const linkedList = new LinkedList(0);
+
+				linkedList.push(1);
+				linkedList.push(2);
+				linkedList.push(3);
+
+				linkedList.reverse();
+
+				const node0 = linkedList.get(0);
+				const node1 = linkedList.get(1);
+				const node2 = linkedList.get(2);
+				const node3 = linkedList.get(3);
+
+				expect(node0?.value).to.be.equal(3);
+				expect(node1?.value).to.be.equal(2);
+				expect(node2?.value).to.be.equal(1);
+				expect(node3?.value).to.be.equal(0);
 			});
 		});
 	});

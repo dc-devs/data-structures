@@ -2,13 +2,15 @@ class Node {
 	constructor(value: number | string) {
 		this.value = value;
 		this.next = null;
+		this.prev = null;
 	}
 
 	value;
 	next: Node | null;
+	prev: Node | null;
 }
 
-class LinkedList {
+class DoublyLinkedList {
 	constructor(value: number | string) {
 		const newNode = new Node(value);
 		this.head = newNode;
@@ -19,17 +21,25 @@ class LinkedList {
 	// Big O(n) - Linear Time
 	// Iterating through list
 	get(index: number) {
-		if (index >= this.length || index < 0) {
+		if (index < 0 || index >= this.length) {
 			return undefined;
 		}
 
-		let currentNode: Node | null | undefined = this.head;
+		const nodeInFirstHalf = index < this.length / 2;
+		let currentNode: Node;
 
-		// Since currentNode already set,
-		// and i starts at 0
-		// only increment if index is above this value
-		for (let i = 0; i < index; i++) {
-			currentNode = currentNode?.next;
+		if (nodeInFirstHalf) {
+			currentNode = this.head as Node;
+
+			for (let i = 0; i < index; i++) {
+				currentNode = currentNode.next as Node;
+			}
+		} else {
+			currentNode = this.tail as Node;
+
+			for (let i = this.length - 1; i > index; i--) {
+				currentNode = currentNode.prev as Node;
+			}
 		}
 
 		return currentNode;
@@ -109,11 +119,12 @@ class LinkedList {
 	push(value: number | string) {
 		const newNode = new Node(value);
 
-		if (!this.head) {
+		if (this.length === 0) {
 			this.head = newNode;
 			this.tail = newNode;
 		} else if (this.tail) {
 			this.tail.next = newNode;
+			newNode.prev = this.tail;
 			this.tail = newNode;
 		}
 
@@ -125,29 +136,25 @@ class LinkedList {
 	// Big O(n) - Linear Time
 	// Iterating through list
 	pop() {
-		if (!this.head) {
+		if (this.length === 0) {
 			return undefined;
 		}
 
-		let lastNode = this.head;
-		let previousNode = this.head;
+		const poppedNode = this.tail as Node;
 
 		if (this.length === 1) {
 			this.head = null;
 			this.tail = null;
 		} else {
-			while (lastNode.next) {
-				previousNode = lastNode;
-				lastNode = lastNode.next;
-			}
-
-			this.tail = previousNode;
+			this.tail = poppedNode.prev as Node;
 			this.tail.next = null;
+
+			poppedNode.prev = null;
 		}
 
 		this.length -= 1;
 
-		return lastNode;
+		return poppedNode;
 	}
 
 	// Big O(1) - Constant Time
@@ -190,39 +197,9 @@ class LinkedList {
 		return shiftedNode;
 	}
 
-	// Big O(n) - Linear Time
-	// Iterating through list
-	reverse() {
-		// Reverse head and tail
-		const tempHead = this.head;
-
-		this.head = this.tail;
-		this.tail = tempHead;
-
-		// Reverse pointers
-		let previousNode = null;
-		let currentNode = tempHead;
-		let nextNode = tempHead?.next;
-
-		for (let i = 0; i < this.length; i++) {
-			if (currentNode) {
-				// Move next pointer one node forward
-				nextNode = currentNode.next;
-				// Flip Pointer to previous node
-				currentNode.next = previousNode;
-				// Move previous pointer one node forward
-				previousNode = currentNode;
-				// Move current pointer one node forward
-				currentNode = nextNode;
-			}
-		}
-
-		return this;
-	}
-
 	head: Node | null;
 	tail: Node | null;
 	length: number;
 }
 
-export default LinkedList;
+export default DoublyLinkedList;
