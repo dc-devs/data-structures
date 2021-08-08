@@ -212,14 +212,14 @@ describe('LinkedList', () => {
 					});
 				});
 
-				describe('and the index is equal to the length', () => {
+				describe('and the index is equal to the length minus one', () => {
 					it('should remove a node at the end of the linked list', () => {
 						const linkedList = new LinkedList(0);
 						linkedList.push(1);
 						linkedList.push(2);
 						linkedList.push(3);
 
-						linkedList.remove(4);
+						linkedList.remove(3);
 
 						expect(linkedList.length).to.be.equal(3);
 						expect(linkedList.tail?.value).to.be.equal(2);

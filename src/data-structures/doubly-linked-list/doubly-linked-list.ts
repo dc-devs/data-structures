@@ -1,14 +1,4 @@
-class Node {
-	constructor(value: number | string) {
-		this.value = value;
-		this.next = null;
-		this.prev = null;
-	}
-
-	value;
-	next: Node | null;
-	prev: Node | null;
-}
+import Node from '../node';
 
 class DoublyLinkedList {
 	constructor(value: number | string) {
@@ -60,25 +50,34 @@ class DoublyLinkedList {
 	// Big O(n) - Linear Time
 	// Iterating through list
 	insert(index: number, value: number | string) {
-		if (index === 0) {
-			return !!this.unshift(value);
-		}
-
-		if (index === this.length) {
-			return !!this.push(value);
-		}
-
 		if (index < 0 || index > this.length) {
 			return false;
 		}
 
-		const newNode = new Node(value);
-		const previousNode = this.get(index - 1);
-		const nextNode = previousNode?.next;
+		if (index === 0) {
+			this.unshift(value);
+			return true;
+		}
 
-		if (previousNode && newNode && nextNode) {
-			previousNode.next = newNode;
+		if (index === this.length) {
+			this.push(value);
+			return true;
+		}
+
+		const prevNode = this.get(index - 1);
+
+		if (prevNode) {
+			const newNode = new Node(value);
+			const nextNode = prevNode?.next as Node;
+
+			prevNode.next = newNode;
+
 			newNode.next = nextNode;
+			newNode.prev = prevNode;
+
+			nextNode.prev = newNode;
+		} else {
+			return false;
 		}
 
 		this.length += 1;
@@ -86,28 +85,49 @@ class DoublyLinkedList {
 		return true;
 	}
 
+	containsNodeWithValue(value: number | string) {
+		let foundValue = false;
+		let currentNode = this.head;
+
+		while (currentNode && !foundValue) {
+			if (currentNode.value === value) {
+				foundValue = true;
+			}
+
+			currentNode = currentNode.next;
+		}
+
+		return foundValue;
+	}
+
 	// Big O(n) - Linear Time
 	// Iterating through list
 	remove(index: number) {
-		if (index === 0) {
-			return !!this.shift();
-		}
-
-		if (index === this.length) {
-			return !!this.pop();
-		}
-
-		if (index < 0 || index > this.length) {
+		if (index < 0 || index >= this.length) {
 			return false;
 		}
 
-		const previousNode = this.get(index - 1);
-		const removedNode = previousNode?.next;
-		const nextNode = removedNode?.next;
+		if (index === 0) {
+			return this.shift();
+		}
 
-		if (previousNode && removedNode && nextNode) {
-			previousNode.next = nextNode;
+		if (index === this.length - 1) {
+			return this.pop();
+		}
+
+		const removedNode = this.get(index) as Node;
+
+		if (removedNode) {
+			const prevNode = removedNode.prev as Node;
+			const nextNode = removedNode.next as Node;
+
+			prevNode.next = nextNode;
+			nextNode.prev = prevNode;
+
 			removedNode.next = null;
+			removedNode.prev = null;
+		} else {
+			return false;
 		}
 
 		this.length -= 1;
@@ -161,12 +181,16 @@ class DoublyLinkedList {
 	unshift(value: number | string) {
 		const newNode = new Node(value);
 
-		if (!this.head) {
+		if (this.length === 0) {
 			this.head = newNode;
 			this.tail = newNode;
 		} else {
-			newNode.next = this.head;
+			const nextNode = this.head as Node;
+
 			this.head = newNode;
+			this.head.next = nextNode;
+
+			nextNode.prev = newNode;
 		}
 
 		this.length += 1;
@@ -176,20 +200,20 @@ class DoublyLinkedList {
 
 	// Big O(1) - Constant Time
 	shift() {
-		if (!this.head) {
+		if (this.length === 0) {
 			return undefined;
 		}
 
-		const newFirstNode = this.head.next;
-		const shiftedNode = this.head;
-
-		shiftedNode.next = null;
+		const shiftedNode = this.head as Node;
 
 		if (this.length === 1) {
 			this.head = null;
 			this.tail = null;
 		} else {
-			this.head = newFirstNode;
+			this.head = shiftedNode.next as Node;
+			this.head.prev = null;
+
+			shiftedNode.next = null;
 		}
 
 		this.length -= 1;
