@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import validateSubsequence from './validate-subsequence';
 
-describe.only('validateSubsequence', () => {
+describe('validateSubsequence', () => {
 	it('exists', () => {
 		expect(typeof validateSubsequence).to.be.equal('function');
 	});
