@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import sumOfLinkedLists from './sum-of-linked-lists';
-import LinkedList from '../../../data-structures/linked-list';
+import LinkedList from '../../../../data-structures/linked-list';
 
 describe('Algorithms', () => {
 	describe('Linked Lists', () => {

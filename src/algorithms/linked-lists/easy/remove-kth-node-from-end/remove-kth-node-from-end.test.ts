@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import removeKthNodeFromEnd from './remove-kth-node-from-end';
-import LinkedList from '../../../data-structures/linked-list';
+import LinkedList from '../../../../data-structures/linked-list';
 
 describe('Algorithms', () => {
 	describe('Linked Lists', () => {

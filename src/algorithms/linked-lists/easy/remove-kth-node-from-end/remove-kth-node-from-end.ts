@@ -1,4 +1,4 @@
-import Node from '../../../data-structures/node';
+import Node from '../../../../data-structures/node';
 
 // Kth from the end would be the last number: k-1
 // const removeKthNodeFromEnd = (head: Node | null, k: number) => {

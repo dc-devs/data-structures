@@ -1,5 +1,5 @@
-import Node from '../../../data-structures/node';
-import LinkedList from '../../../data-structures/linked-list';
+import Node from '../../../../data-structures/node';
+import LinkedList from '../../../../data-structures/linked-list';
 
 // linkedListTwo = 9 -> 4 -> 5 -> null
 // linkedListOne = 2 -> 4 -> 7 -> 1 -> null
