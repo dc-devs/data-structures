@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import smallestDifference from './smallest-difference';
 
-describe.only('Algorithms', () => {
+describe('Algorithms', () => {
 	describe('Arrays', () => {
 		describe('smallestDifference', () => {
 			it('exists', () => {
