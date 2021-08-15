@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import arrayOfProducts from './array-of-products';
 
-describe.only('Algorithms', () => {
+describe('Algorithms', () => {
 	describe('Arrays', () => {
 		describe('arrayOfProducts', () => {
 			it('exists', () => {
@@ -9,7 +9,7 @@ describe.only('Algorithms', () => {
 			});
 
 			describe('when passed an array of numbers', () => {
-				it('should return length of longest peak', () => {
+				it('should return and array of products', () => {
 					const array = [5, 1, 4, 2];
 					const result = arrayOfProducts(array);
 

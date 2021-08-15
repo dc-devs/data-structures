@@ -9,7 +9,7 @@ describe('Algorithms', () => {
 			});
 
 			describe('when passed an array of numbers', () => {
-				it('should return length of longest peak', () => {
+				it('should return first deuplicate value', () => {
 					const array = [2, 1, 5, 2, 3, 3, 4];
 					const result = firstDuplicateValue(array);
 
