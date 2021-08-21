@@ -14,7 +14,7 @@ const threeNumberSum = (numArray: number[], targetSum: number): Triplet[] => {
 	});
 
 	for (let i = 0; i < numArray.length; i++) {
-		let baseNumber = numArray[i] as number;
+		const baseNumber = numArray[i] as number;
 		let leftPointer = (i + 1) as number;
 		let rightPointer = (numArray.length - 1) as number;
 

@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import mergeOverlappinngIntervals from './merge-overlapping-intervals';
 
-describe.only('Algorithms', () => {
+describe('Algorithms', () => {
 	describe('Arrays', () => {
 		describe('mergeOverlappinngIntervals', () => {
 			it('exists', () => {

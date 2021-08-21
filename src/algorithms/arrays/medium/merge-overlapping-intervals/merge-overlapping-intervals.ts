@@ -1,11 +1,7 @@
 // Merge Overlapping Intervals
 //
-// O() Time
-// O() Space
-//
-//
-//
-//
+// O(nlog(n)) Time | Sorting Quick/Merge
+// O(n) Space
 //
 // array = [ [ 1, 10 ], [ 2, 3 ], [ 4, 5 ], [ 6, 7 ], [ 8, 9 ] ]
 const mergeOverlappingIntervals = (array: number[][]): number[][] => {
